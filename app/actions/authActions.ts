@@ -2,14 +2,17 @@
 import { RegisterSchema,registerSchema } from "@/lib/schmeas/registerSchema";
 import bcrypt from 'bcryptjs';
 import { prisma } from "@/lib/prisma";
+import { ActionResult } from "@/lib/types";
 
 
 
-export async function registeredUser(data: RegisterSchema) {
-    const validated = registerSchema.safeParse(data);
+export async function registeredUser(data: RegisterSchema): Promise<ActionResult<string>> {
+
+    try {
+         const validated = registerSchema.safeParse(data);
 
     if(!validated.success) {
-        throw new Error("Invalid data");
+        return {status: 'error', error: validated.error.errors}
     }
 
     const {name,email,password} = validated.data;
@@ -23,11 +26,24 @@ export async function registeredUser(data: RegisterSchema) {
         throw new Error("User already exists");
     }
 
-    return prisma.user.create({
+    const user = await prisma.user.create({
         data: {
             name,
             email,
             passwordHash: hashedPassword
         }
     })
+
+    return {status: 'success', data: user}
+    }
+
+    catch (error) {
+        console.error(error);
+        return {status: 'error', error: 'Something went wrong'}
+    }
+
 }
+
+
+
+   
