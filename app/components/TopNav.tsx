@@ -1,6 +1,5 @@
 "use client";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
-import { Button } from "@nextui-org/react";
+import { Navbar, Button } from "@nextui-org/react";
 import { GiMatchTip } from "react-icons/gi";
 import Link from "next/link";
 
@@ -18,20 +17,14 @@ const TopNav = () => {
             <span className="text-gray-200">Match</span>
           </div>
         </Link>
-
         <div className="flex gap-8">
           <Link href="/members" className="text-white uppercase text-xl">Matches</Link>
           <Link href="/lists" className="text-white uppercase text-xl">Lists</Link>
           <Link href="/messages" className="text-white uppercase text-xl">Messages</Link>
         </div>
-
         <div className="flex gap-2">
-          <Button as={Link} href="/login" variant="bordered" className="text-white border-white">
-            Login
-          </Button>
-          <Button as={Link} href="/register" variant="bordered" className="text-white border-white">
-            Register
-          </Button>
+          <Button as={Link} href="/login" variant="bordered" className="text-white border-white">Login</Button>
+          <Button as={Link} href="/register" variant="bordered" className="text-white border-white">Register</Button>
         </div>
       </div>
     </Navbar>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "@heroui/react";
+import { Button } from "@nextui-org/react";
 import Link from 'next/link'
 import { FaRegSmile } from "react-icons/fa";
 
@@ -10,6 +10,3 @@ export default function Home() {
     </div>
   );
 }
-
-
-
