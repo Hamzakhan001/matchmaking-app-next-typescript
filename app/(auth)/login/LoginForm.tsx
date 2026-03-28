@@ -3,12 +3,16 @@
 import { Card, CardBody, CardHeader, Input, Button } from "@nextui-org/react";
 import { GiPadlock } from "react-icons/gi";
 import {useForm} from 'react-hook-form';
+import { LoginSchema,loginSchema } from "@/lib/schmeas/loginSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const LoginForm = () => {
 
-    const {register, handleSubmit} = useForm();
+    const {register, handleSubmit, formState: {errors, isValid}} = useForm<LoginSchema>({
+        resolver: zodResolver(loginSchema)
+    })
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: LoginSchema) => {
         console.log(data);
     }
 
@@ -32,6 +36,8 @@ const LoginForm = () => {
                     label="Email"
                     variant= "bordered"
                     {...register('email')}
+                    isInvalid={!!errors.email}
+                    errorMessage={errors.email?.message as string}
                     />
                     <Input 
                     defaultValue=""
@@ -39,8 +45,10 @@ const LoginForm = () => {
                     variant= "bordered"
                     type="password"
                     {...register('password')}
+                    isInvalid={!!errors.password}
+                    errorMessage={errors.password?.message as string}
                     />
-                    <Button fullWidth color="secondary" type="submit">
+                    <Button  fullWidth color="secondary" type="submit">
                         Login
                     </Button>
                 </div>
