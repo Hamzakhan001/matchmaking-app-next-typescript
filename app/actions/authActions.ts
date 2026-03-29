@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import { prisma } from "@/lib/prisma";
 import { ActionResult } from "@/lib/types";
 import { LoginSchema } from "@/lib/schmeas/loginSchema";
-import { signIn } from "@/lib/auth";
+import { signIn, signOut } from "@/lib/auth";
 
 
 
@@ -87,4 +87,8 @@ export async function getUserById(id: string) {
     return prisma.user.findUnique({
         where: {id}
     })
+}
+
+export async function signOutUser() {
+    await signOut({ redirectTo: "/" })
 }

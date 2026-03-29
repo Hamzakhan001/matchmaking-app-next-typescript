@@ -1,9 +1,14 @@
-"use client";
 import { Navbar, Button } from "@nextui-org/react";
 import { GiMatchTip } from "react-icons/gi";
+import UserMenu from "./navbar/UserMenu";
 import Link from "next/link";
+import { auth } from "@/lib/auth";
 
-const TopNav = () => {
+const TopNav = async () => {
+  const session = await auth();
+
+
+
   return (
     <Navbar
       maxWidth="full"
@@ -23,8 +28,15 @@ const TopNav = () => {
           <Link href="/messages" className="text-white uppercase text-xl">Messages</Link>
         </div>
         <div className="flex gap-2">
-          <Button as={Link} href="/login" variant="bordered" className="text-white border-white">Login</Button>
-          <Button as={Link} href="/register" variant="bordered" className="text-white border-white">Register</Button>
+          {session?.user ? (
+            <UserMenu user={session.user} />
+          ): (
+            <>
+            <Button as={Link} href="/login" variant="bordered" className="text-white border-white">Login</Button>
+            <Button as={Link} href="/register" variant="bordered" className="text-white border-white">Register</Button>
+            </>
+          )}
+          
         </div>
       </div>
     </Navbar>
