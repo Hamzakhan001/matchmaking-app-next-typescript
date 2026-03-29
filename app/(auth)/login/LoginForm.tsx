@@ -2,20 +2,30 @@
 
 import { Card, CardBody, CardHeader, Input, Button } from "@nextui-org/react";
 import { GiPadlock } from "react-icons/gi";
+import { useRouter } from "next/router";
 import {useForm} from 'react-hook-form';
 import { LoginSchema,loginSchema } from "@/lib/schmeas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {signInUser} from "@/app/actions/authActions";
+import { signIn } from "@/lib/auth";
+import { use } from "react";
 
 const LoginForm = () => {
-
-    const {register, handleSubmit, formState: {errors, isValid}} = useForm<LoginSchema>({
+    const router = useRouter();
+    const {register, handleSubmit, formState: {errors, isValid, isSubmitting}} = useForm<LoginSchema>({
         resolver: zodResolver(loginSchema),
         mode: 'onTouched'
     })
 
-    const onSubmit = (data: LoginSchema) => {
-        console.log(data);
-    }
+    const onSubmit = async (data: LoginSchema) => {
+        const results = await signInUser(data);
+
+        if (results.status === 'success') {
+            router.push('/members');
+        } else {
+            console.log(results)
+        }
+}
 
 
   return (
@@ -49,7 +59,7 @@ const LoginForm = () => {
                     isInvalid={!!errors.password}
                     errorMessage={errors.password?.message as string}
                     />
-                    <Button  fullWidth color="secondary" type="submit">
+                    <Button isLoading={isSubmitting} fullWidth color="secondary" type="submit">
                         Login
                     </Button>
                 </div>
