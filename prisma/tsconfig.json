@@ -10,12 +10,5 @@
       "@/*": ["./*"]
     },
     "skipLibCheck": true
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "lib/generated/prisma/index.d.ts"
-  ]
+  }
 }
