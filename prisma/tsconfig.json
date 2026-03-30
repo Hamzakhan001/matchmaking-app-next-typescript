@@ -6,9 +6,10 @@
     "esModuleInterop": true,
     "strict": false,
     "baseUrl": "../",
-    "paths": {
-      "@/*": ["./*"]
-    },
     "skipLibCheck": true
-  }
+  },
+  "include": [
+    "seed.ts",
+    "membersData.ts"
+  ]
 }
