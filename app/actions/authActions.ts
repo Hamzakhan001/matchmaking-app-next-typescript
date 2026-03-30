@@ -1,11 +1,12 @@
 'use server'
 
-import { RegisterSchema,registerSchema } from "@/lib/schmeas/registerSchema";
+import { RegisterSchema,registerSchema } from "@/match-app/lib/schmeas/registerSchema";
 import bcrypt from 'bcryptjs';
-import { prisma } from "@/lib/prisma";
-import { ActionResult } from "@/lib/types";
-import { LoginSchema } from "@/lib/schmeas/loginSchema";
-import { signIn, signOut } from "@/lib/auth";
+import { prisma } from "@/match-app/lib/prisma";
+import { ActionResult } from "@/match-app/lib/types";
+import { LoginSchema } from "@/match-app/lib/schmeas/loginSchema";
+import { signIn, signOut } from "@/match-app/lib/auth";
+import { auth } from "@/match-app/lib/auth";
 
 
 
@@ -91,4 +92,15 @@ export async function getUserById(id: string) {
 
 export async function signOutUser() {
     await signOut({ redirectTo: "/" })
+}
+
+
+export async function getAuthUserId() {
+    const session = await auth();
+    const userId = session?.user?.id;
+
+    if(!userId){
+        throw new Error("Unauthorized");
+    }
+    return userId;
 }
