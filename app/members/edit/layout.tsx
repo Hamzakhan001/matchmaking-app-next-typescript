@@ -1,4 +1,4 @@
-import { getMemberByUserId } from "@/app/actions/memberActions";
+import { getMemberByUserId } from "@/match-app/app/actions/memberActions";
 import MemberSidebar from "../MemberSidebar";
 import { notFound } from "next/navigation";
 import Card from '@nextui-org/card/dist/card';

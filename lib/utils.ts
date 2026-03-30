@@ -1,6 +1,6 @@
 import {differenceInYears} from 'date-fns';
 import { FieldValues, Path, UseFormSetError } from 'react-hook-form';
-import { ZodIssue } from 'zod';
+import { ZodIssue } from 'zod/v3';
 
 
 export function calculateAge(dob: Date) {
@@ -9,7 +9,7 @@ export function calculateAge(dob: Date) {
 
 
 export function handleFormServerErrors<TFieldValues extends FieldValues>(
-	errorResponse: { error: string | ZodIssue[] },
+	errorResponse: { status: 'error'; error: string | ZodIssue[] },
 	setError: UseFormSetError<TFieldValues>
 ) {
 	if (Array.isArray(errorResponse.error)) {

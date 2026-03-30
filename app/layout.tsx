@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import TopNav from "@/app/components/TopNav";
+import TopNav from "@/match-app/app/components/TopNav";
 import Providers from "./providers";
 
 

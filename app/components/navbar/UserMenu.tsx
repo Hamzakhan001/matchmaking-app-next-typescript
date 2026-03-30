@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 
 import React from 'react'
-import { signOutUser } from '@/app/actions/authActions';
+import { signOutUser } from '@/match-app/app/actions/authActions';
 
 type Props = {
     user: Session['user']

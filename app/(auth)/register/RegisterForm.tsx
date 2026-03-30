@@ -4,14 +4,13 @@ import {useForm} from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, CardHeader, Input, Button } from "@nextui-org/react";
 import { GiPadlock } from "react-icons/gi";
-import { registerSchema, RegisterSchema } from "@/lib/schmeas/registerSchema";
-import { registeredUser } from '@/app/actions/authActions';
+import { registerSchema, RegisterSchema } from "@/match-app/lib/schmeas/registerSchema";
+import { registeredUser } from '@/match-app/app/actions/authActions';
 import { handleFormServerErrors } from '@/match-app/lib/utils';
-import { set } from 'zod';
 
 
 const RegisterForm = () => {
-    const {register, handleSubmit,setError formState: {errors,isValid, isSubmitting}} = useForm<RegisterSchema>({
+    const {register, handleSubmit, setError, formState: {errors,isValid, isSubmitting}} = useForm<RegisterSchema>({
         resolver: zodResolver(registerSchema),
         mode: 'onTouched'
     })

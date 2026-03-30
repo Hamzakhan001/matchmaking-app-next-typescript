@@ -3,9 +3,9 @@
 
 import { MemberEditSchema,memberEditSchema } from "@/match-app/lib/schmeas/memberEditSchema";
 import { ActionResult } from '@/match-app/lib/types';
-import { Member } from '@prisma/client';
+import { Member } from '@/match-app/lib/generated/prisma';
 import { getAuthUserId } from './authActions';
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@/match-app/lib/prisma';
 
 
 export async function updateMemberProfile(

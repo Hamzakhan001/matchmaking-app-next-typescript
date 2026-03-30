@@ -4,9 +4,9 @@ import { Card, CardBody, CardHeader, Input, Button } from "@nextui-org/react";
 import { GiPadlock } from "react-icons/gi";
 import { useRouter } from "next/navigation";
 import {useForm} from 'react-hook-form';
-import { LoginSchema,loginSchema } from "@/lib/schmeas/loginSchema";
+import { LoginSchema,loginSchema } from "@/match-app/lib/schmeas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {signInUser} from "@/app/actions/authActions";
+import {signInUser} from "@/match-app/app/actions/authActions";
 import { toast } from "react-toastify";
 
 const LoginForm = () => {

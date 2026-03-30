@@ -1,7 +1,7 @@
 "use client";
 
 import { Member } from "../../lib/generated/prisma";
-import { calculateAge } from "@/lib/utils";
+import { calculateAge } from "@/match-app/lib/utils";
 import { Button, Card, CardBody, CardFooter, Divider } from "@nextui-org/react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";

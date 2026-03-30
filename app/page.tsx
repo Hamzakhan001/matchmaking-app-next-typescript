@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Button } from "@nextui-org/react";
 import Link from 'next/link'
 import { FaRegSmile } from "react-icons/fa";
-import { auth, signOut } from "@/lib/auth";
+import { auth, signOut } from "@/match-app/lib/auth";
 
 export default async function Home() {
   const session = await auth();

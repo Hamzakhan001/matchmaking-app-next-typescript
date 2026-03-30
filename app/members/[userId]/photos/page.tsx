@@ -1,4 +1,4 @@
-import { getMemberPhotosByUserId } from "@/app/actions/memberActions";
+import { getMemberPhotosByUserId } from "@/match-app/app/actions/memberActions";
 import { CardBody, CardHeader, Divider } from "@nextui-org/react";
 import Image from "next/image";
 import React from "react";

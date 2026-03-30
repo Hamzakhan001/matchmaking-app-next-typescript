@@ -1,7 +1,6 @@
-import {auth} from "@/lib/auth";
-import { authRoutes, publicRoutes } from "@/lib/routes";
+import { auth } from "@/match-app/lib/auth";
+import { authRoutes, publicRoutes } from "@/match-app/lib/routes";
 import { NextResponse } from "next/server";
-
 
 export default auth((req) => {
     const {nextUrl} = req;

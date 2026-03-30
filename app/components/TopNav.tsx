@@ -2,7 +2,7 @@ import { Navbar, Button } from "@nextui-org/react";
 import { GiMatchTip } from "react-icons/gi";
 import UserMenu from "./navbar/UserMenu";
 import Link from "next/link";
-import { auth } from "@/lib/auth";
+import { auth } from "@/match-app/lib/auth";
 
 const TopNav = async () => {
   const session = await auth();

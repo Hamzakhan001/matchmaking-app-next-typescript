@@ -1,7 +1,7 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
-import { auth } from "@/lib/auth";
+import { prisma } from "@/match-app/lib/prisma";
+import { auth } from "@/match-app/lib/auth";
 import { user } from "@nextui-org/react";
 
 export async function getMembers() {

@@ -1,13 +1,15 @@
-import React from "react";
+import {CardHeader, Divider, CardBody} from "@nextui-org/react";
 
 const ChatPage = () => {
   return (
     <div>
       <CardHeader className="text-2xl font-semibold text-secondary">
-        {member.name}
+        Chat
       </CardHeader>
       <Divider />
-      <CardBody>{member.description}</CardBody>
+      <CardBody>
+        {/* Add chat UI here */}
+      </CardBody>
     </div>
   );
 };
