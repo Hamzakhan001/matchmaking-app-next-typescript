@@ -6,6 +6,8 @@ import { Card, CardBody, CardHeader, Input, Button } from "@nextui-org/react";
 import { GiPadlock } from "react-icons/gi";
 import { registerSchema, RegisterSchema } from "@/lib/schmeas/registerSchema";
 import { registeredUser } from '@/app/actions/authActions';
+import { handleFormServerErrors } from '@/match-app/lib/utils';
+import { set } from 'zod';
 
 
 const RegisterForm = () => {
@@ -20,14 +22,7 @@ const RegisterForm = () => {
         if(result.status === 'success') {
             console.log('User registered successfully', result.data);
         } else {
-            if(Array.isArray(result.error)) {
-                result.error.forEach((err) => {
-                    const fieldName = err.path.join('.') as 'email' | 'password' | 'name';
-                    setError(fieldName, {message: err.message})
-                })
-            } else {
-                setError('root.serverError', {message: result.error})
-            }
+            handleFormServerErrors(result, setError)
         }
     }
 
