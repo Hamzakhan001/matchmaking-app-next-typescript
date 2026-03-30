@@ -6,6 +6,7 @@ import { ActionResult } from '@/match-app/lib/types';
 import { Member } from '@/match-app/lib/generated/prisma';
 import { getAuthUserId } from './authActions';
 import { prisma } from '@/match-app/lib/prisma';
+import { Photo } from "@/match-app/lib/generated/prisma";
 
 
 export async function updateMemberProfile(
@@ -44,4 +45,51 @@ export async function updateMemberProfile(
 
 		return { status: 'error', error: 'Something went wrong' };
 	}
+}
+
+
+export async function addImage(url: string, publicId: string) {
+    try{
+        const userId = await getAuthUserId()
+
+        return prisma.member.update({
+            where: {userId},
+            data: {
+                photos: {
+                    create: [
+                        {
+                            url,
+                            publicId
+                        }
+                    ]
+                }
+            }
+        })
+    }catch(error) {
+        throw error;
+    }
+}
+
+
+export async function setMainImage(photo: Photo) {
+    try{
+        const userId = await getAuthUserId()
+        await prisma.user.update({
+            where: {
+                id: userId
+            },
+            data: {image: photo.url}
+        })
+
+        return prisma.member.update({
+            where: {
+                userId
+            },
+            data : {
+                image: photo.url
+            }
+        })
+    }catch(error){
+        throw error;
+    }
 }

@@ -3,10 +3,15 @@ import Image from "next/image";
 import EditForm from "../EditForm";
 import StarButton from "@/match-app/app/components/StarButton";
 import { getAuthUserId } from "@/match-app/app/actions/authActions";
-import { getMemberPhotosByUserId } from "@/match-app/app/actions/memberActions";
+import { getMemberByUserId, getMemberPhotosByUserId } from "@/match-app/app/actions/memberActions";
+import ImageUploadButton from "@/match-app/app/components/ImageUploadButton";
+import MemberPhotoUpload from "./MemberPhotoUpload";
+import MemberImage from "@/match-app/app/components/MemberImage";
+import MemberPhotos from "@/match-app/app/components/MemberPhotos";
 
 const page = async () => {
   const userId = await getAuthUserId();
+  const member = await getMemberByUserId(userId)
   const photos = await getMemberPhotosByUserId(userId);
 
   return (
@@ -16,26 +21,8 @@ const page = async () => {
       </CardHeader>
       <Divider />
       <CardBody>
-        <div className="grid grid-cols-5 gap-3 p-5">
-          {photos &&
-            photos?.map((photo) => (
-              <div key={photo.id} className="relative">
-                <Image
-                  width={220}
-                  height={220}
-                  src={photo.url}
-                  alt="Image of the user"
-                />
-
-                <div className="absolute top-3 left-3 z-50">
-                  <StarButton selected={true} loading={false} />
-                </div>
-                <div className="absolute top-3 right-3 z-50">
-                  <StarButton selected={false} loading={false} />
-                </div>
-              </div>
-            ))}
-        </div>
+        <MemberPhotoUpload />
+       <MemberPhotos photos={photos} editing={true} mainImageUrl= {member.image}/>
       </CardBody>
     </div>
   );
