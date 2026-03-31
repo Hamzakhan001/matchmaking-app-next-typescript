@@ -4,16 +4,18 @@ import {
   messageSchema,
   MessageSchema,
 } from "@/match-app/lib/schmeas/messageSchema";
-import { ActionResult } from "@/match-app/lib/types";
+import { ActionResult, MessageDto } from "@/match-app/lib/types";
 import { Message } from "@/match-app/lib/generated/prisma";
 import { getAuthUserId } from "./authActions";
 import { prisma } from "@/match-app/lib/prisma";
 import { mapMessageToMessageDto } from "@/match-app/lib/mappings";
+import { pusherServer } from "@/match-app/lib/pusher";
+import { createChatId } from "@/match-app/lib/utils";
 
 export async function createMessage(
   recepientUserId: string,
   data: MessageSchema,
-): Promise<ActionResult<Message>> {
+): Promise<ActionResult<MessageDto>> {
   try {
     const userId = await getAuthUserId();
 
@@ -29,11 +31,16 @@ export async function createMessage(
         recipientId: recepientUserId,
         senderId: userId,
       },
+      select: messageSelect
     });
+
+    const messageDto = mapMessageToMessageDto(message)
+
+    await pusherServer.trigger(createChatId(userId, recepientUserId), 'message:new', messageDto)
 
     return {
       status: "success",
-      data: message,
+      data: messageDto,
     };
   } catch (error) {
     return { status: "error", error: "Something went wrong" };
@@ -60,7 +67,17 @@ export async function getMessageThread(recipientId: string) {
       orderBy: {
         created: "asc",
       },
-      select: {
+      select: messageSelect
+    })
+
+    return messages.map(message=> mapMessageToMessageDto(message)) 
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+const messageSelect = {
         id: true,
         text: true,
         created: true,
@@ -78,12 +95,5 @@ export async function getMessageThread(recipientId: string) {
             name: true,
             image: true,
           },
-        },
-      },
-    })
-
-    return messages.map(message=> mapMessageToMessageDto(message)) 
-  } catch (error) {
-    throw error;
+        }
   }
-}
