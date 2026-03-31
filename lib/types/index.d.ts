@@ -5,8 +5,12 @@ export type ActionResult<T> =
 	| { status: 'error'; error: string | ZodIssue[] };
 
 
-type MessageWithSenderRecipient = Prisma.MessageGetPayload<{
-	include: {
+type MessageWithSenderRecipient = Prisma.<{
+	select: {
+		id: true,
+		text: true,
+		created: true,
+		dateRead: true,
 		sender: {
 			select: {userId, name, image}
 		},

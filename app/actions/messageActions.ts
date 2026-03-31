@@ -8,6 +8,7 @@ import { ActionResult } from "@/match-app/lib/types";
 import { Message } from "@/match-app/lib/generated/prisma";
 import { getAuthUserId } from "./authActions";
 import { prisma } from "@/match-app/lib/prisma";
+import { mapMessageToMessageDto } from "@/match-app/lib/mappings";
 
 export async function createMessage(
   recepientUserId: string,
@@ -81,10 +82,7 @@ export async function getMessageThread(recipientId: string) {
       },
     })
 
-    return messages.map(message=> ({
-        id: message.id,
-        text: message.text
-    })) 
+    return messages.map(message=> mapMessageToMessageDto(message)) 
   } catch (error) {
     throw error;
   }
