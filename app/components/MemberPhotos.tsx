@@ -49,7 +49,7 @@ const MemberPhotos = ({photos, editing, mainImageUrl}: Props) => {
                   <StarButton selected={photo.url === mainImageUrl} loading={loading.isLoading && loading.type === 'main' && loading.id === photo.id} />
                 </div>
                 <div className="absolute top-3 right-3 z-50">
-                  <StarButton loading={false} />
+                  <DeleteButton loading={false} />
                 </div>
                     </>
                 )}
