@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
 import React from "react";
 import { getMemberByUserId } from "../../actions/memberActions";
-import { Card, CardBody, Divider } from "@nextui-org/react";
+import CardInnerWrapper from "../../components/CardInnerWrapper";
 
 const MemberDetailedPage = async ({
   params,
 }: {
-  params: Promise<{ userId: string }>;
+  params: { userId: string};
 }) => {
   const { userId } = await params;
 
@@ -16,12 +16,10 @@ const MemberDetailedPage = async ({
   }
   return (
     <div>
-      <CardHeader className='text-2xl font-semibold text-secondary'>{member.name}</CardHeader>
-      <Divider />
-      <CardBody>
-        {member.description}
-      </CardBody>
-
+     <CardInnerWrapper 
+     header='Profile'
+     body={<div>{member.description}</div>}
+     />
     </div>
   );
 };
