@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { MessageDto } from '@/match-app/lib/types';
 import clsx from 'clsx'
 import { Avatar } from '@nextui-org/react';
@@ -11,7 +11,12 @@ type Props = {
 
 
 const MessageBox = async ({message, currentUserId}: Props) => {
+    const messageEndRef = useRef<HTMLDivElement>(null);
     const isCurrentUserSender = message.senderId === currentUserId;
+
+    useEffect(() => {
+        if(messageEndRef.current) messageEndRef.current.scrollIntoView({behavior: 'smooth'})
+    },[messageEndRef])
 
     const renderAvatar = () => {
         return <Avatar 
@@ -66,8 +71,8 @@ const MessageBox = async ({message, currentUserId}: Props) => {
             {!isCurrentUserSender && renderAvatar()}
             {renderMessageContent()}
             {isCurrentUserSender && renderAvatar()}
-
         </div>
+        <div ref={messageEndRef} />
     </div>
   )
 }
