@@ -9,6 +9,7 @@ type PresenceState = {
 }
 
 
+
 const usePresenceStore = create<PresenceState> ()(devtools((set) => ({
     members: [],
     add: (id) => set((state)=> ({members: [...state.members, id]})),
